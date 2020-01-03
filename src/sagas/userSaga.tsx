@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import REST from 'src/utils/api';
-import { UPDATE_USER } from 'src/reducers/userReducer';
+import REST from '../../src/utils/api';
+import { UPDATE_USER } from '../../src/reducers/userReducer';
 
 export function* watchSignUpAsync() {
   yield takeLatest('WATCH_SIGN_UP', workerSignUpAsync);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { primary } from 'src/styles/color';
+import { primary } from '../../../../src/styles/color';
 
 interface Props {
   onPress: () => void;

@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar, View, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/stores';
-import AppContainer from 'src/navigations';
+import AppContainer from './src/navigations';
 
 export default () => {
   const onNavigationStateChange = (prev, next, action) => {

@@ -12,15 +12,15 @@ interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
 
-const HomeScreen: NavigationStackScreenComponent<Props> = props => {
+const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
   return (
     <View style={styles.main}>
-      <Text>This is HomeScreen</Text>
+      <Text>This is ScanQRCodeScreen</Text>
     </View>
   );
 };
 
-HomeScreen.navigationOptions = () => ({
+ScanQRCodeScreen.navigationOptions = () => ({
   headerShown: true,
   headerStyle: {
     borderBottomWidth: 0,
@@ -28,5 +28,5 @@ HomeScreen.navigationOptions = () => ({
 });
 
 export default createStackNavigator({
-  HomeScreen: HomeScreen,
+  QRScreen: ScanQRCodeScreen,
 });

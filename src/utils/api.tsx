@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Alert } from 'react-native';
 
 const REST = axios.create({
-  baseURL: 'https://be-s3-newspost.herokuapp.com/api',
+  baseURL: 'http://10.100.108:6789/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

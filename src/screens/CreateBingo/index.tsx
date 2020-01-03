@@ -7,20 +7,21 @@ import {
   createStackNavigator,
 } from 'react-navigation-stack';
 import styles from './styles';
+import Button from '../../components/atoms/Button';
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
 
-const HomeScreen: NavigationStackScreenComponent<Props> = props => {
+const CreateBingo: NavigationStackScreenComponent<Props> = props => {
   return (
     <View style={styles.main}>
-      <Text>This is HomeScreen</Text>
+      <Button type="primary">Create</Button>
     </View>
   );
 };
 
-HomeScreen.navigationOptions = () => ({
+CreateBingo.navigationOptions = () => ({
   headerShown: true,
   headerStyle: {
     borderBottomWidth: 0,
@@ -28,5 +29,5 @@ HomeScreen.navigationOptions = () => ({
 });
 
 export default createStackNavigator({
-  HomeScreen: HomeScreen,
+  CreateBingo: CreateBingo,
 });

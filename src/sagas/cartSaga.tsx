@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { addOrUpdateCart, removeCart, getCarts } from 'src/utils/storage';
-import { ADD_CART, REMOVE_CART, GET_CARTS } from 'src/reducers/cartReducer';
+import { addOrUpdateCart, removeCart, getCarts } from '../../src/utils/storage';
+import { ADD_CART, REMOVE_CART, GET_CARTS } from '../../src/reducers/cartReducer';
 
 export function* watchAddCart() {
   yield takeLatest('WATCH_ADD_CART', workerAddCart);

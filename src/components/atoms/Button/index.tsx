@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, TouchableOpacityProps, StyleSheetProperties } from 'react-native';
 import styles from './styles';
-import { primary, secondary } from 'src/styles/color';
+import { primary, secondary } from '../../../../src/styles/color';
 
 type Type = 'default' | 'primary' | 'secondary';
 
@@ -66,7 +66,11 @@ const ButtonCustom: React.FC<Props> = props => {
     }
   }
   return (
-    <TouchableOpacity {...props} style={[styles.main, theme.main, props.style]} onPress={props.onPress}>
+    <TouchableOpacity
+      {...props}
+      style={[styles.main, theme.main, props.style]}
+      onPress={props.onPress}
+    >
       <Text style={[styles.text, theme.text]}>{props.children}</Text>
     </TouchableOpacity>
   );

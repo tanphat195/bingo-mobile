@@ -20,7 +20,7 @@ const <%= name%>: NavigationStackScreenComponent<Props> = (props) => {
 }
 
 <%= name%>.navigationOptions = () => ({
-  header: null,
+  headerShown: true,
 });
 
 export default <%= name%>;

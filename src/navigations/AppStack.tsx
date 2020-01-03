@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import HomeScreen from 'src/screens/HomeScreen';
+import HomeScreen from '../../src/screens/HomeScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { primary } from 'src/styles/color';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -19,7 +19,13 @@ const BottomStack = createMaterialBottomTabNavigator(
       screen: HomeDrawer,
       navigationOptions: {
         tabBarIcon: ({ tintColor, focused }) => {
-          return <Ionicons size={24} name="ios-home" color={focused ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.3)'} />;
+          return (
+            <Ionicons
+              size={24}
+              name="ios-home"
+              color={focused ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.3)'}
+            />
+          );
         },
       },
     },

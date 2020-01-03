@@ -1,50 +1,59 @@
 import { useState, useImperativeHandle, forwardRef } from 'react';
-import { isRequired, isEmail, minLength, maxLength, validateForm, checkForm, getFormErrors, getFormValues } from './validate';
+import {
+  isRequired,
+  isEmail,
+  minLength,
+  maxLength,
+  validateForm,
+  checkForm,
+  getFormErrors,
+  getFormValues,
+} from './validate';
 
 type isRequired = {
-  isRequired?: boolean, 
-  message: string,
+  isRequired?: boolean;
+  message: string;
 };
 
 type isEmail = {
-  isEmail?: boolean, 
-  message: string,
+  isEmail?: boolean;
+  message: string;
 };
 
 type isNumber = {
-  isNumber?: boolean, 
-  message: string,
+  isNumber?: boolean;
+  message: string;
 };
 
 type minLength = {
-  min: number,
-  message: string,
+  min: number;
+  message: string;
 };
 
 type maxLength = {
-  max: number,
-  message: string,
+  max: number;
+  message: string;
 };
 
-type validateType = isRequired | isEmail | isNumber | minLength | maxLength
+type validateType = isRequired | isEmail | isNumber | minLength | maxLength;
 
 type InitialFormType = {
-  [key:string]: {
-    value: string | boolean,
-    error?: string,
-    validate?: validateType[],
-  }
-}
+  [key: string]: {
+    value: string | boolean;
+    error?: string;
+    validate?: validateType[];
+  };
+};
 
 interface Props {
   initialForm: InitialFormType;
   children: any;
-};
+}
 
 const Form = (props: Props, ref) => {
   const [form, setForm] = useState(props.initialForm);
   useImperativeHandle(ref, () => ({
-    submit
+    submit,
   }));
 
   const updateFormKey = (key, value) => {
@@ -53,20 +62,20 @@ const Form = (props: Props, ref) => {
       [key]: {
         ...form[key],
         value,
-      }
-    }
-    setForm(newForm)
+      },
+    };
+    setForm(newForm);
   };
 
   const setFormKeys = Object.keys(form).reduce(
     (prev, key) => ({
       ...prev,
-      [key]: updateFormKey.bind(this, key)
-    }), {});
+      [key]: updateFormKey.bind(this, key),
+    }),
+    {},
+  );
 
-  
-
-  const submit = (callback) => {
+  const submit = callback => {
     const newForm = validateForm(form);
     setForm(newForm);
     if (!checkForm(newForm)) {
@@ -74,12 +83,10 @@ const Form = (props: Props, ref) => {
       callback(false, values);
     } else {
       const errors = getFormErrors(newForm);
-      callback(true, errors)
+      callback(true, errors);
     }
   };
-  
-  return (
-    props.children(form, setFormKeys)
-  )
-}
+
+  return props.children(form, setFormKeys);
+};
 export default forwardRef(Form);

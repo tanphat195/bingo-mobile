@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { primary, secondary } from '../../../styles/color';
+import { primary, secondary } from '../../../../src/styles/color';
 
 export default StyleSheet.create({
-  main : {
+  main: {
     borderRadius: 24,
     width: 100,
     height: 36,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
   pointer: {
     width: 28,
-    height:28,
+    height: 28,
     borderRadius: 20,
     position: 'absolute',
     top: 2,
@@ -43,5 +43,5 @@ export default StyleSheet.create({
     marginLeft: 3,
     marginBottom: 3,
     color: 'rgba(0,0,0,0.6)',
-  }
+  },
 });
