@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import {
   NavigationStackProp,
   NavigationStackScreenProps,
@@ -22,19 +22,21 @@ const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
   }, []);
 
   return (
-    <View style={styles.main}>
-      <View style={styles.content}>
-        {card.map(row => (
-          <View style={styles.row}>
-            {row.map(cell => (
-              <View style={styles.cell}>
-                <Text>{cell}</Text>
-              </View>
-            ))}
-          </View>
-        ))}
+    <ScrollView>
+      <View style={styles.main}>
+        <View style={styles.content}>
+          {card.map(row => (
+            <View style={styles.row}>
+              {row.map(cell => (
+                <View key={cell.value} style={styles.cell}>
+                  <Text>{cell.status === 'available' ? cell.value : ''}</Text>
+                </View>
+              ))}
+            </View>
+          ))}
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
