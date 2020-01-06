@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Dimensions, TouchableOpacity } from 'react-native';
 import {
   NavigationStackProp,
   NavigationStackScreenProps,
@@ -8,6 +8,10 @@ import {
 } from 'react-navigation-stack';
 import styles from './styles';
 import REST from '../../utils/api';
+import SocketService from '../../services/SocketService';
+import socketIO from 'socket.io-client';
+
+const screenWidth = Math.round(Dimensions.get('window').width);
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
@@ -15,28 +19,32 @@ interface Props extends NavigationStackScreenProps {
 
 const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
   const [card, setCard] = useState([]);
+  const [cellWidth, setCellWidth] = useState(0);
   useEffect(() => {
     REST.get('/card').then(res => {
       setCard(res.data.card);
+      setCellWidth(screenWidth / res.data.num_of_column);
     });
+
+    SocketService.init('/bingo');
   }, []);
 
   return (
-    <ScrollView>
-      <View style={styles.main}>
-        <View style={styles.content}>
-          {card.map(row => (
-            <View style={styles.row}>
-              {row.map(cell => (
-                <View key={cell.value} style={styles.cell}>
+    <View style={styles.main}>
+      <View style={styles.content}>
+        {card.map((row, index) => (
+          <View key={index} style={styles.row}>
+            {row.map(cell => (
+              <View key={cell.value} style={{ width: cellWidth }}>
+                <TouchableOpacity style={styles.cell}>
                   <Text>{cell.status === 'available' ? cell.value : ''}</Text>
-                </View>
-              ))}
-            </View>
-          ))}
-        </View>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+        ))}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

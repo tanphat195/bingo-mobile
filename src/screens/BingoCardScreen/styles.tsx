@@ -6,14 +6,18 @@ export default StyleSheet.create({
     flexDirection: 'column',
   },
   row: {
+    display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cell: {
-    width: 50,
     height: 50,
     margin: 2,
     backgroundColor: 'rgba(230, 230, 230, 1)',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 0,
+    fontSize: 10,
   },
 });

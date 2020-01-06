@@ -7,7 +7,6 @@ export default StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 12,
   },
   border: {
     flexDirection: 'row',
