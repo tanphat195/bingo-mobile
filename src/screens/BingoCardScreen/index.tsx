@@ -8,6 +8,7 @@ import {
 } from 'react-navigation-stack';
 import styles from './styles';
 import REST from '../../utils/api';
+import { connect } from 'react-redux';
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
@@ -48,6 +49,10 @@ BingoCardScreen.navigationOptions = () => ({
   headerShown: true,
 });
 
+const mapState = state => ({
+  access_token: state.access_token,
+});
+
 export default createStackNavigator({
-  BingoCardScreen: BingoCardScreen,
+  BingoCardScreen: connect(mapState)(BingoCardScreen),
 });

@@ -1,11 +1,7 @@
 import { combineReducers } from 'redux';
 
-import user from './userReducer';
-import post from './postReducer';
-import carts from './cartReducer';
+import access_token from './tokenReducer';
 
 export default combineReducers({
-  user,
-  post,
-  carts,
+  access_token,
 });

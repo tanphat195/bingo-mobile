@@ -1,10 +1,12 @@
-export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 
-const initialState = {};
+const initialState = {
+  token: '',
+};
 
 const mapActions = {
-  [UPDATE_USER]: (state, payload) => ({
-    ...payload,
+  [UPDATE_TOKEN]: (state, payload) => ({
+    token: payload,
   }),
 };
 

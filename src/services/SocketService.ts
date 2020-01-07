@@ -9,7 +9,7 @@ class SocketService {
   }
 
   init = (path, callback: Function) => {
-    this.socket = socketIO('http://192.168.5.231:6789', {
+    this.socket = socketIO('http://10.100.108:6789', {
       path,
       timeout: 10000,
       jsonp: false,

@@ -2,15 +2,16 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import CreateBingo from '../screens/CreateBingo';
+import CreateBingoScreen from '../screens/CreateBingoScreen';
 import ScanQRCodeScreen from '../screens/ScanQRCodeScreen';
 import BingoCardScreen from '../screens/BingoCardScreen';
+import RoomMasterScreen from '../screens/RoomMasterScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const BottomStack = createMaterialBottomTabNavigator(
   {
     Create: {
-      screen: CreateBingo,
+      screen: CreateBingoScreen,
       navigationOptions: {
         tabBarIcon: ({ tintColor, focused }) => {
           return (
@@ -67,6 +68,12 @@ const RootStack = createStackNavigator({
     screen: BottomStack,
     navigationOptions: {
       headerShown: false,
+    },
+  },
+  RoomMasterScreen: {
+    screen: RoomMasterScreen,
+    navigationOptions: {
+      // headerShown: false,
     },
   },
 });
