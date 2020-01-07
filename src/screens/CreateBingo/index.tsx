@@ -12,6 +12,7 @@ import Button from '../../components/atoms/Button';
 import Input from '../../components/atoms/Input';
 import SocketService from '../../services/SocketService';
 import Commands from '../../services/Commands';
+import REST from '../../utils/api';
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
@@ -21,8 +22,12 @@ const CreateBingo: NavigationStackScreenComponent<Props> = props => {
   const formRef = useRef(null);
 
   useEffect(() => {
+    REST.post('access_tokens')
+      .then(res => {})
+      .catch(err => {});
+
     SocketService.init('/bingo', () => {
-      SocketService.register(Commands.createGame, params => {
+      SocketService.register(Commands.createRoom, params => {
         console.log(params);
       });
     });
@@ -31,8 +36,8 @@ const CreateBingo: NavigationStackScreenComponent<Props> = props => {
   const onCreate = () => {
     formRef.current.submit((err, values) => {
       if (!err) {
-        const sendData = SocketService.makeSendData(Commands.createGame);
-        sendData.addParam('name', values.name);
+        const sendData = SocketService.makeSendData(Commands.createRoom);
+        sendData.addParam('user_name', values.user_name);
         SocketService.send(sendData);
       }
     });
@@ -43,15 +48,16 @@ const CreateBingo: NavigationStackScreenComponent<Props> = props => {
       <Form
         ref={formRef}
         initialForm={{
-          name: { value: '', validate: [{ isRequired: true, message: 'Name is required' }] },
+          user_name: { value: '', validate: [{ isRequired: true, message: 'Name is required' }] },
         }}
       >
         {(form, setFormKeys) => (
           <>
             <Input
-              value={form['name'].value}
-              error={form['name'].error}
-              onChangeText={setFormKeys['name']}
+              value={form['user_name'].value}
+              error={form['user_name'].error}
+              onChangeText={setFormKeys['user_name']}
+              style={{ backgroundColor: '#fff' }}
             />
             <Button type="primary" onPress={onCreate}>
               Create

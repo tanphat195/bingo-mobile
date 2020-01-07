@@ -8,14 +8,12 @@ import {
 } from 'react-navigation-stack';
 import styles from './styles';
 import REST from '../../utils/api';
-import SocketService from '../../services/SocketService';
-import socketIO from 'socket.io-client';
-
-const screenWidth = Math.round(Dimensions.get('window').width);
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
+
+const screenWidth = Math.round(Dimensions.get('window').width);
 
 const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
   const [card, setCard] = useState([]);
@@ -25,8 +23,6 @@ const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
       setCard(res.data.card);
       setCellWidth(screenWidth / res.data.num_of_column);
     });
-
-    SocketService.init('/bingo');
   }, []);
 
   return (
