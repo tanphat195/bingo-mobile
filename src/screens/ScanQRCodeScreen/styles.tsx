@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  main: {},
+  main: {
+    flex: 1,
+  },
   centerText: {
     flex: 1,
     fontSize: 18,
