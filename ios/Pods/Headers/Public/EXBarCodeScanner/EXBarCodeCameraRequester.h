@@ -1,1 +1,7 @@
-../../../../../node_modules/expo-barcode-scanner/ios/EXBarCodeScanner/EXBarCodeCameraRequester.h
+// Copyright 2016-present 650 Industries. All rights reserved.
+
+#import <UMPermissionsInterface/UMPermissionsInterface.h>
+
+@interface EXBareCodeCameraRequester : NSObject<UMPermissionsRequester>
+
+@end

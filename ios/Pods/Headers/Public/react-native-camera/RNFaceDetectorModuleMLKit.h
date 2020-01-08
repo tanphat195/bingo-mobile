@@ -1,1 +1,5 @@
-../../../../../node_modules/react-native-camera/ios/RN/RNFaceDetectorModuleMLKit.h
+#import <React/RCTBridgeModule.h>
+#import "FaceDetectorManagerMlkit.h"
+
+@interface RNFaceDetectorModuleMLKit : NSObject <RCTBridgeModule>
+@end

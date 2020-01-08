@@ -1,1 +1,5 @@
-../../../../../node_modules/react-native-firebase/ios/RNFirebase/admob/RNFirebaseAdMobNativeExpressManager.h
+#import <React/RCTViewManager.h>
+
+@interface RNFirebaseAdMobNativeExpressManager : RCTViewManager
+
+@end
