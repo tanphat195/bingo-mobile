@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { Alert } from 'react-native';
+import { API_HOST } from '../constant';
 
 const REST = axios.create({
-  baseURL: 'http://10.100.108:6789/api',
+  baseURL: `${API_HOST}/api`,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

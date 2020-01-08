@@ -7,13 +7,20 @@ import {
   createStackNavigator,
 } from 'react-navigation-stack';
 import styles from './styles';
-import QRCodeScanner from 'react-native-qrcode-scanner';
+import { connect } from 'react-redux';
 import { Camera } from 'expo-camera';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import SocketService from '../../services/SocketService';
+import Commands from '../../services/Commands';
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
+
+declare type BarCodeScanningResult = {
+  type: string;
+  data: string;
+};
 
 const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -26,6 +33,13 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
     })();
   }, []);
 
+  const onBarCodeScanned = (scanningResult: BarCodeScanningResult) => {
+    const sendData = SocketService.makeSendData(Commands.joinRoom);
+    sendData.addParam('ticket', scanningResult.data);
+    sendData.addParam('token', props.access_token.token);
+    SocketService.send(sendData);
+  };
+
   return (
     <View style={styles.main}>
       <Text>This is ScanQRCodeScreen</Text>
@@ -35,9 +49,7 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
         barCodeScannerSettings={{
           barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
         }}
-        onBarCodeScanned={e => {
-          console.log(e);
-        }}
+        onBarCodeScanned={onBarCodeScanned}
       >
         <View
           style={{
@@ -75,6 +87,10 @@ ScanQRCodeScreen.navigationOptions = () => ({
   },
 });
 
+const mapState = state => ({
+  access_token: state.access_token,
+});
+
 export default createStackNavigator({
-  QRScreen: ScanQRCodeScreen,
+  QRScreen: connect(mapState)(ScanQRCodeScreen),
 });

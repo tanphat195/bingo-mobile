@@ -1,6 +1,7 @@
 import socketIO from 'socket.io-client';
 import RegisterHandlers from './RegisterHandlers';
 import SendData from './SendData';
+import { API_HOST } from '../constant';
 
 class SocketService {
   socket: any;
@@ -9,7 +10,7 @@ class SocketService {
   }
 
   init = (path, callback: Function) => {
-    this.socket = socketIO('http://10.100.108:6789', {
+    this.socket = socketIO(API_HOST, {
       path,
       timeout: 10000,
       jsonp: false,
