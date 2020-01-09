@@ -23,13 +23,21 @@ const Input: React.FC<Props> = props => {
   return (
     <View style={styles.main}>
       {props.label && (
-        <View pointerEvents="none" style={[styles.viewText, (isFocused || props.value) && styles.viewText_focus]}>
+        <View
+          pointerEvents="none"
+          style={[styles.viewText, (isFocused || props.value) && styles.viewText_focus]}
+        >
           <Text style={[styles.labelText, isFocused && styles.labelText_focus]}>{props.label}</Text>
         </View>
       )}
       <TextInput
         {...props}
-        style={[styles.input, props.style, isFocused && styles.focusBorder, props.error && styles.errorBorder]}
+        style={[
+          styles.input,
+          props.style,
+          isFocused && styles.focusBorder,
+          props.error && styles.errorBorder,
+        ]}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />

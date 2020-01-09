@@ -12,6 +12,7 @@ import { Camera } from 'expo-camera';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import SocketService from '../../services/SocketService';
 import Commands from '../../services/Commands';
+import GoBackArrow from '../../components/atoms/GoBackArrow';
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
@@ -42,7 +43,6 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
 
   return (
     <View style={styles.main}>
-      <Text>This is ScanQRCodeScreen</Text>
       <Camera
         style={{ flex: 1 }}
         type={type}
@@ -80,7 +80,7 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
   );
 };
 
-ScanQRCodeScreen.navigationOptions = () => ({
+ScanQRCodeScreen.navigationOptions = ({ navigation }) => ({
   headerShown: true,
   headerStyle: {
     borderBottomWidth: 0,

@@ -1,5 +1,12 @@
-import React from 'react';
-import { Text, TouchableOpacity, TouchableOpacityProps, StyleSheetProperties } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  StyleSheetProperties,
+} from 'react-native';
 import styles from './styles';
 import { primary, secondary } from '../../../../src/styles/color';
 
@@ -10,6 +17,7 @@ interface Props extends TouchableOpacityProps {
 }
 
 const ButtonCustom: React.FC<Props> = props => {
+  const [isPressIn, setIsPressIn] = useState(false);
   let theme = {
     main: {},
     text: {},
@@ -65,14 +73,33 @@ const ButtonCustom: React.FC<Props> = props => {
       }
     }
   }
+
+  const onPressIn = e => {
+    setIsPressIn(true);
+  };
+
+  const onPressOut = e => {
+    setIsPressIn(false);
+  };
+
   return (
-    <TouchableOpacity
-      {...props}
-      style={[styles.main, theme.main, props.style]}
-      onPress={props.onPress}
-    >
-      <Text style={[styles.text, theme.text]}>{props.children}</Text>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity
+        {...props}
+        style={[styles.main, theme.main, props.style, isPressIn && styles.pressIn]}
+        onPress={props.onPress}
+        onPressIn={onPressIn}
+        onPressOut={onPressOut}
+        activeOpacity={1}
+      >
+        {typeof props.children === 'string' ? (
+          <Text style={[styles.text, theme.text]}>{props.children}</Text>
+        ) : (
+          props.children
+        )}
+      </TouchableOpacity>
+      <View style={styles.press} />
+    </View>
   );
 };
 

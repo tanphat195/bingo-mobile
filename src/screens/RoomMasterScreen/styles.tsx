@@ -11,6 +11,5 @@ export default StyleSheet.create({
   qrcodeWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 20,
   },
 });

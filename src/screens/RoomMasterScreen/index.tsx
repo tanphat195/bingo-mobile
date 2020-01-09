@@ -5,6 +5,7 @@ import {
   NavigationStackScreenProps,
   NavigationStackScreenComponent,
 } from 'react-navigation-stack';
+import GoBackArrow from '../../components/atoms/GoBackArrow';
 import QRCode from 'react-native-qrcode-svg';
 import styles from './styles';
 import REST from '../../utils/api';
@@ -28,7 +29,6 @@ const RoomMasterScreen: NavigationStackScreenComponent<Props> = props => {
 
   return (
     <View style={styles.main}>
-      <Text style={styles.title}>{room.title}</Text>
       <View style={styles.qrcodeWrapper}>
         {code ? (
           <QRCode
@@ -40,12 +40,14 @@ const RoomMasterScreen: NavigationStackScreenComponent<Props> = props => {
           />
         ) : null}
       </View>
+      <Text style={styles.title}>{room.title}</Text>
     </View>
   );
 };
 
-RoomMasterScreen.navigationOptions = () => ({
+RoomMasterScreen.navigationOptions = ({ navigation }) => ({
   headerShown: true,
+  headerLeft: () => <GoBackArrow onPress={() => navigation.goBack()} />,
 });
 
 export default RoomMasterScreen;

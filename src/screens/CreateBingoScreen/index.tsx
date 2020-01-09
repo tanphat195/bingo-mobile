@@ -86,6 +86,7 @@ const CreateBingoScreen: NavigationStackScreenComponent<Props> = props => {
           {(form, setFormKeys) => (
             <>
               <Input
+                label="Title"
                 value={form['title'].value}
                 error={form['title'].error}
                 onChangeText={setFormKeys['title']}

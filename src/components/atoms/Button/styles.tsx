@@ -1,12 +1,22 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  container: {
+    position: 'relative',
+  },
   main: {
+    zIndex: 1,
+    position: 'absolute',
+    top: 0,
+    width: '100%',
     height: 42,
-    borderRadius: 4,
+    borderRadius: 8,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#1FC2FF',
   },
   border: {
     flexDirection: 'row',
@@ -15,5 +25,19 @@ export default StyleSheet.create({
   },
   text: {
     fontSize: 18,
+  },
+  press: {
+    zIndex: -1,
+    position: 'absolute',
+    top: 4,
+    backgroundColor: '#1AA8EB',
+    width: '100%',
+    height: 42,
+    borderRadius: 12,
+  },
+  pressIn: {
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
+    top: 4,
   },
 });
