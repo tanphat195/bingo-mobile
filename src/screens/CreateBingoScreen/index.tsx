@@ -15,12 +15,12 @@ import Commands from '../../services/Commands';
 import { connect } from 'react-redux';
 import REST from '../../utils/api';
 
-interface Props extends NavigationStackScreenProps {
+interface IProps extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
   requestAccessToken: () => void;
 }
 
-const CreateBingoScreen: NavigationStackScreenComponent<Props> = props => {
+const CreateBingoScreen: NavigationStackScreenComponent<IProps> = props => {
   const formRef = useRef(null);
 
   const [rooms, setRooms] = useState([]);

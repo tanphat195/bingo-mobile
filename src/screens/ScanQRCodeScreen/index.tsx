@@ -36,7 +36,7 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
 
   const onBarCodeScanned = (scanningResult: BarCodeScanningResult) => {
     const sendData = SocketService.makeSendData(Commands.joinRoom);
-    sendData.addParam('ticket', scanningResult.data);
+    sendData.addParam('current_code', scanningResult.data);
     sendData.addParam('token', props.access_token.token);
     SocketService.send(sendData);
   };

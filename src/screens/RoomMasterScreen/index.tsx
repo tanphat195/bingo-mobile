@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import {
   NavigationStackProp,
@@ -9,21 +9,32 @@ import GoBackArrow from '../../components/atoms/GoBackArrow';
 import QRCode from 'react-native-qrcode-svg';
 import styles from './styles';
 import REST from '../../utils/api';
+import SocketService from '../../services/SocketService';
+import Commands from '../../services/Commands';
 
-interface Props extends NavigationStackScreenProps {
+interface IProps extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
 
-const RoomMasterScreen: NavigationStackScreenComponent<Props> = props => {
-  const [room, setRoom] = useState({});
+interface IRoom {
+  title: string;
+}
+
+const RoomMasterScreen: NavigationStackScreenComponent<IProps> = props => {
+  const [room, setRoom] = useState<IRoom>({ title: '' });
   const [code, setCode] = useState('');
 
   useEffect(() => {
     REST.get(`room/${props.navigation.state.params.id}`).then(res => {
       setRoom(res.data);
     });
-    REST.get(`ticket/room/${props.navigation.state.params.id}`).then(res => {
+    REST.get(`room/${props.navigation.state.params.id}/current_code`).then(res => {
       setCode(res.data);
+    });
+    SocketService.register(Commands.joinRoom, params => {
+      if (!params.error) {
+        props.navigation.navigate('BingoCardScreen');
+      }
     });
   }, []);
 

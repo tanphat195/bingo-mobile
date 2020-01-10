@@ -39,9 +39,10 @@ const BottomStack = createMaterialBottomTabNavigator(
         tabBarColor: 'red',
       },
     },
-    BingoCard: {
+    BingoCardScreen: {
       screen: BingoCardScreen,
       navigationOptions: {
+        title: 'Card',
         tabBarIcon: ({ tintColor, focused }) => {
           return (
             <Ionicons

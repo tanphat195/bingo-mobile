@@ -1,10 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  main: {},
-  content: {
-    flexDirection: 'column',
+  main: {
+    flex: 1,
   },
+  content: {},
+  item: {
+    backgroundColor: '#FFFFFF',
+    padding: 12,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  card: {},
   row: {
     display: 'flex',
     flexDirection: 'row',
