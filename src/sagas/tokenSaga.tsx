@@ -8,11 +8,16 @@ export function* watchAccessTokenAsync() {
 
 function* workerAccessTokenAsync(action) {
   try {
-    const token = yield call(requestAccessToken, action, action.callback);
+    const res = yield call(requestAccessToken);
+
     yield put({
       type: UPDATE_TOKEN,
-      payload: token,
+      payload: res.data.token,
     });
+
+    if (action.callback) {
+      action.callback();
+    }
   } catch (error) {
     yield put({
       type: UPDATE_TOKEN,
@@ -21,16 +26,8 @@ function* workerAccessTokenAsync(action) {
   }
 }
 
-const requestAccessToken = (action, callback = (err, user) => {}) => {
-  return REST.post('access_token', action.payload)
-    .then(res => {
-      callback(false, res.data.token);
-      return res.data.token;
-    })
-    .catch(err => {
-      callback(true, err.response.data.errors);
-      return err.response.data.errors;
-    });
+const requestAccessToken = () => {
+  return REST.post('access_token');
 };
 
 ///////////////////////////////////////////////////////

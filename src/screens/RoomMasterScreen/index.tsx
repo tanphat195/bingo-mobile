@@ -28,9 +28,12 @@ const RoomMasterScreen: NavigationStackScreenComponent<IProps> = props => {
     REST.get(`room/${props.navigation.state.params.id}`).then(res => {
       setRoom(res.data);
     });
-    REST.get(`room/${props.navigation.state.params.id}/current_code`).then(res => {
-      setCode(res.data);
-    });
+    REST.get(`room/${props.navigation.state.params.id}/current_code`)
+      .then(res => {
+        setCode(res.data);
+      })
+      .catch(err => {});
+
     SocketService.register(Commands.joinRoom, params => {
       if (!params.error) {
         props.navigation.navigate('BingoCardScreen');

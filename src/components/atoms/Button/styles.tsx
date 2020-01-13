@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     position: 'relative',
+    height: 46,
   },
   main: {
     zIndex: 1,

@@ -17,12 +17,8 @@ interface Props extends NavigationStackScreenProps {
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
-  const [cards, setCards] = useState([]);
-
   useEffect(() => {
-    REST.get('/cards').then(res => {
-      setCards(res.data.cards);
-    });
+    props.getCards();
   }, []);
 
   const gotoCardDetail = item => {
@@ -34,7 +30,7 @@ const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
     <View style={styles.main}>
       <View style={styles.content}>
         <FlatList
-          data={cards}
+          data={props.card.cards}
           renderItem={({ item }) => <Card {...item.card} title={item.title} />}
           keyExtractor={item => item._id}
           ItemSeparatorComponent={renderSeparator}
@@ -95,8 +91,16 @@ BingoCardScreen.navigationOptions = () => ({
 
 const mapState = state => ({
   access_token: state.access_token,
+  card: state.card,
+});
+
+const mapDispatch = dispatch => ({
+  getCards: () =>
+    dispatch({
+      type: 'WATCH_GET_CARDS',
+    }),
 });
 
 export default createStackNavigator({
-  BingoCardScreen: connect(mapState)(BingoCardScreen),
+  BingoCardScreen: connect(mapState, mapDispatch)(BingoCardScreen),
 });

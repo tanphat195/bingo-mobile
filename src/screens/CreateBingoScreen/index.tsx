@@ -23,17 +23,14 @@ interface IProps extends NavigationStackScreenProps {
 const CreateBingoScreen: NavigationStackScreenComponent<IProps> = props => {
   const formRef = useRef(null);
 
-  const [rooms, setRooms] = useState([]);
-
   useEffect(() => {
     props.requestAccessToken((err, token) => {
       if (!err) {
         SocketService.init('/bingo', () => {
-          REST.post('room/current').then(res => {
-            setRooms(res.data.rooms);
-          });
+          props.getCurrentRoom();
           SocketService.register(Commands.createRoom, params => {
             if (!params.error) {
+              props.getCurrentRoom();
               props.navigation.navigate('RoomMasterScreen', { id: params.room._id });
             }
           });
@@ -59,24 +56,7 @@ const CreateBingoScreen: NavigationStackScreenComponent<IProps> = props => {
 
   return (
     <View style={styles.main}>
-      {rooms.length > 0 ? (
-        <FlatList
-          data={rooms}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => {
-                gotoRoom(item._id);
-              }}
-            >
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.status}>Status: {item.status}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item._id}
-          ItemSeparatorComponent={renderSeparator}
-        />
-      ) : (
+      <View style={styles.form}>
         <Form
           ref={formRef}
           initialForm={{
@@ -98,7 +78,23 @@ const CreateBingoScreen: NavigationStackScreenComponent<IProps> = props => {
             </>
           )}
         </Form>
-      )}
+      </View>
+      <FlatList
+        data={props.room.current}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => {
+              gotoRoom(item._id);
+            }}
+          >
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.status}>Status: {item.status}</Text>
+          </TouchableOpacity>
+        )}
+        keyExtractor={item => item._id}
+        ItemSeparatorComponent={renderSeparator}
+      />
     </View>
   );
 };
@@ -124,6 +120,7 @@ CreateBingoScreen.navigationOptions = () => ({
 
 const mapState = state => ({
   access_token: state.access_token,
+  room: state.room,
 });
 
 const mapDispatch = dispatch => ({
@@ -131,6 +128,10 @@ const mapDispatch = dispatch => ({
     dispatch({
       type: 'WATCH_ACCESS_TOKEN',
       callback,
+    }),
+  getCurrentRoom: () =>
+    dispatch({
+      type: 'WATCH_GET_CURRENT_ROOM',
     }),
 });
 

@@ -5,6 +5,9 @@ export default StyleSheet.create({
     margin: 20,
     flex: 1,
   },
+  form: {
+    marginBottom: 24,
+  },
   item: {
     backgroundColor: '#FFFFFF',
     padding: 12,
