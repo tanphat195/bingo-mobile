@@ -16,7 +16,7 @@ function* workerAccessTokenAsync(action) {
     });
 
     if (action.callback) {
-      action.callback();
+      action.callback(null, res.data.token);
     }
   } catch (error) {
     yield put({

@@ -13,7 +13,6 @@ import Input from '../../components/atoms/Input';
 import SocketService from '../../services/SocketService';
 import Commands from '../../services/Commands';
 import { connect } from 'react-redux';
-import REST from '../../utils/api';
 
 interface IProps extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
