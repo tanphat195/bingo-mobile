@@ -33,7 +33,6 @@ const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
           data={props.card.cards}
           renderItem={({ item }) => <Card {...item.card} title={item.title} />}
           keyExtractor={item => item._id}
-          ItemSeparatorComponent={renderSeparator}
         />
       </View>
     </View>
@@ -53,10 +52,8 @@ const Card: React.FC<ICard> = ({ card, num_of_column, title }) => {
   });
 
   return (
-    <View>
-      <View>
-        <Text>{title}</Text>
-      </View>
+    <View style={styles.card}>
+      <Text style={styles.title}>{title}</Text>
       {card.map((row, index) => (
         <View key={index} style={styles.row}>
           {row.map(cell => (
@@ -72,20 +69,20 @@ const Card: React.FC<ICard> = ({ card, num_of_column, title }) => {
   );
 };
 
-const renderSeparator = () => {
-  return (
-    <View
-      style={{
-        height: 1,
-        width: '100%',
-        backgroundColor: 'rgba(0,0,0,0.05)',
-      }}
-    />
-  );
-};
+// const renderSeparator = () => {
+//   return (
+//     <View
+//       style={{
+//         height: 1,
+//         width: '100%',
+//         backgroundColor: 'rgba(0,0,0,0.05)',
+//       }}
+//     />
+//   );
+// };
 
 BingoCardScreen.navigationOptions = () => ({
-  headerShown: true,
+  headerShown: false,
   title: '',
 });
 

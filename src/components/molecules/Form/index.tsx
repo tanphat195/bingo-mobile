@@ -54,7 +54,12 @@ const Form = (props: Props, ref) => {
   const [form, setForm] = useState(props.initialForm);
   useImperativeHandle(ref, () => ({
     submit,
+    clearField,
   }));
+
+  const clearField = (key: string) => {
+    updateFormKey(key, '');
+  };
 
   const updateFormKey = (key, value) => {
     const newForm = {

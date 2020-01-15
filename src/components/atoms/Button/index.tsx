@@ -31,7 +31,7 @@ const ButtonCustom: React.FC<Props> = props => {
           borderColor: primary,
         },
         text: {
-          color: primary,
+          color: '#FFFFFF',
         },
       };
       break;
@@ -66,7 +66,7 @@ const ButtonCustom: React.FC<Props> = props => {
             borderColor: primary,
           },
           text: {
-            color: primary,
+            color: '#FFFFFF',
           },
         };
         break;

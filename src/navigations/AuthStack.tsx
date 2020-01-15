@@ -1,15 +1,13 @@
 import { createStackNavigator } from 'react-navigation-stack';
-// import SignInScreen from '../../src/screens/SignInScreen';
-// import SignUpScreen from '../../src/screens/SignUpScreen';
+import Register from '../../src/screens/Register';
 
-const AuthStack = createStackNavigator(
-  {
-    // SignIn: SignInScreen,
-    // SignUp: SignUpScreen,
-  },
-  {
-    initialRouteName: 'SignIn',
-  },
-);
+// const AuthStack = createStackNavigator(
+//   {
+//     Register: Register,
+//   },
+//   {
+//     initialRouteName: 'Register',
+//   },
+// );
 
-export default AuthStack;
+export default Register;

@@ -12,8 +12,11 @@ export default StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: '600',
+    textAlign: 'center',
   },
-  card: {},
+  card: {
+    marginTop: 30,
+  },
   row: {
     display: 'flex',
     flexDirection: 'row',

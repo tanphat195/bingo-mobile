@@ -6,11 +6,11 @@ import { View, Text } from 'react-native';
 import { NavigationStackProp, NavigationStackScreenProps, NavigationStackScreenComponent } from 'react-navigation-stack';
 import styles from './styles';
 
-interface Props extends NavigationStackScreenProps {
+interface IProps extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
 
-const <%= name%>: NavigationStackScreenComponent<Props> = (props) => {
+const <%= name%>: NavigationStackScreenComponent<IProps> = (props) => {
 
   return (
     <View style={styles.main}>

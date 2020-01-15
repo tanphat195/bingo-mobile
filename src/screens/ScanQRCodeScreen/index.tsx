@@ -12,7 +12,6 @@ import { Camera } from 'expo-camera';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import SocketService from '../../services/SocketService';
 import Commands from '../../services/Commands';
-import GoBackArrow from '../../components/atoms/GoBackArrow';
 
 interface Props extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
@@ -32,12 +31,25 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
+
+    SocketService.register(Commands.scanQRCode, params => {
+      if (!params.error) {
+        if (props.user.token === props.user.token) {
+          props.navigation.navigate('BingoCardScreen');
+        }
+      }
+    });
+
+    // SocketService.register(Commands.scanQRCode, params => {
+    //   console.log('scannnnnnnn');
+    //   console.log(params);
+    // });
   }, []);
 
   const onBarCodeScanned = (scanningResult: BarCodeScanningResult) => {
-    const sendData = SocketService.makeSendData(Commands.joinRoom);
+    const sendData = SocketService.makeSendData(Commands.scanQRCode);
     sendData.addParam('current_code', scanningResult.data);
-    sendData.addParam('token', props.access_token.token);
+    sendData.addParam('user', props.user);
     SocketService.send(sendData);
   };
 
@@ -88,7 +100,7 @@ ScanQRCodeScreen.navigationOptions = ({ navigation }) => ({
 });
 
 const mapState = state => ({
-  access_token: state.access_token,
+  user: state.user,
 });
 
 export default createStackNavigator({

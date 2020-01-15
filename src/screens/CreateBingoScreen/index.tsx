@@ -23,17 +23,12 @@ const CreateBingoScreen: NavigationStackScreenComponent<IProps> = props => {
   const formRef = useRef(null);
 
   useEffect(() => {
-    props.requestAccessToken((err, token) => {
-      if (!err) {
-        SocketService.init('/bingo', () => {
-          props.getCurrentRoom();
-          SocketService.register(Commands.createRoom, params => {
-            if (!params.error) {
-              props.getCurrentRoom();
-              props.navigation.navigate('RoomMasterScreen', { id: params.room._id });
-            }
-          });
-        });
+    props.getCurrentRoom();
+    SocketService.register(Commands.createRoom, params => {
+      if (!params.error) {
+        formRef.current.clearField('title');
+        props.getCurrentRoom();
+        props.navigation.navigate('RoomMasterScreen', { id: params.room._id });
       }
     });
   }, []);
@@ -42,8 +37,7 @@ const CreateBingoScreen: NavigationStackScreenComponent<IProps> = props => {
     formRef.current.submit((err, values) => {
       if (!err) {
         const sendData = SocketService.makeSendData(Commands.createRoom);
-        sendData.addParam('token', props.access_token.token);
-        sendData.addParam('title', values.title);
+        sendData.addParam('user', props.user).addParam('title', values.title);
         SocketService.send(sendData);
       }
     });
@@ -118,7 +112,7 @@ CreateBingoScreen.navigationOptions = () => ({
 });
 
 const mapState = state => ({
-  access_token: state.access_token,
+  user: state.user,
   room: state.room,
 });
 

@@ -4,16 +4,19 @@ import { View, ActivityIndicator, Linking, Alert, NativeModules } from 'react-na
 import NetInfo from '@react-native-community/netinfo';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import styles from './styles';
+import SocketService from '../../services/SocketService';
 
 const AuthLoadingScreen: NavigationStackScreenComponent = props => {
   useEffect(() => {
-    checkInternet();
+    // checkInternet();
 
-    props.fetchUser(async (err, user) => {
-      if (!err || user.email) {
-        props.navigation.navigate('Auth');
+    props.accessToken((err, user) => {
+      if (!err && user.token) {
+        SocketService.init('/bingo', () => {
+          props.navigation.navigate('App');
+        });
       } else {
-        props.navigation.navigate('App');
+        props.navigation.navigate('Auth');
       }
     });
   }, []);
@@ -58,9 +61,9 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  fetchUser: callback =>
+  accessToken: callback =>
     dispatch({
-      type: 'WATCH_FETCH_USER',
+      type: 'WATCH_ACCESS_TOKEN',
       callback,
     }),
 });

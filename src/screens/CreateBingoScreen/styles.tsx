@@ -2,7 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   main: {
-    margin: 20,
+    marginTop: 20,
+    marginHorizontal: 20,
     flex: 1,
   },
   form: {
