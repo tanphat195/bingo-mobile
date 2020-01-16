@@ -6,7 +6,7 @@ export function* watchGetCardsAsync() {
   yield takeLatest('WATCH_GET_CARDS', workerGetCardsAsync);
 }
 
-function* workerGetCardsAsync() {
+function* workerGetCardsAsync(action) {
   try {
     const res = yield call(requestGetCards);
     yield put({
@@ -18,6 +18,10 @@ function* workerGetCardsAsync() {
       type: UPDATE_CARD,
       payload: [],
     });
+  } finally {
+    if (action.callback) {
+      action.callback();
+    }
   }
 }
 

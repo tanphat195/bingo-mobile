@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, InteractionManager } from 'react-native';
 import {
   NavigationStackProp,
   NavigationStackScreenProps,
   NavigationStackScreenComponent,
   createStackNavigator,
 } from 'react-navigation-stack';
+import { withNavigationFocus } from 'react-navigation';
 import styles from './styles';
 import { connect } from 'react-redux';
 import { Camera } from 'expo-camera';
@@ -13,7 +14,7 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import SocketService from '../../services/SocketService';
 import Commands from '../../services/Commands';
 
-interface Props extends NavigationStackScreenProps {
+interface IProps extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
 
@@ -22,7 +23,7 @@ declare type BarCodeScanningResult = {
   data: string;
 };
 
-const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
+const ScanQRCodeScreen: NavigationStackScreenComponent<IProps> = props => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
@@ -39,11 +40,6 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
         }
       }
     });
-
-    // SocketService.register(Commands.scanQRCode, params => {
-    //   console.log('scannnnnnnn');
-    //   console.log(params);
-    // });
   }, []);
 
   const onBarCodeScanned = (scanningResult: BarCodeScanningResult) => {
@@ -58,6 +54,7 @@ const ScanQRCodeScreen: NavigationStackScreenComponent<Props> = props => {
       <Camera
         style={{ flex: 1 }}
         type={type}
+        autoFocus={true}
         barCodeScannerSettings={{
           barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
         }}
@@ -104,5 +101,5 @@ const mapState = state => ({
 });
 
 export default createStackNavigator({
-  QRScreen: connect(mapState)(ScanQRCodeScreen),
+  QRScreen: connect(mapState)(withNavigationFocus(ScanQRCodeScreen)),
 });

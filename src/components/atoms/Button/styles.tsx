@@ -6,10 +6,6 @@ export default StyleSheet.create({
     height: 46,
   },
   main: {
-    zIndex: 1,
-    position: 'absolute',
-    top: 0,
-    width: '100%',
     height: 42,
     borderRadius: 8,
     borderTopLeftRadius: 12,
@@ -25,7 +21,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
+    letterSpacing: 0.2,
   },
   press: {
     zIndex: -1,
@@ -39,6 +37,6 @@ export default StyleSheet.create({
   pressIn: {
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
-    top: 4,
+    marginTop: 4,
   },
 });

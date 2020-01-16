@@ -4,7 +4,10 @@ export default StyleSheet.create({
   main: {
     flex: 1,
   },
-  content: {},
+  content: {
+    flex: 1,
+    marginTop: 20,
+  },
   item: {
     backgroundColor: '#FFFFFF',
     padding: 12,
@@ -14,9 +17,7 @@ export default StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
-  card: {
-    marginTop: 30,
-  },
+  card: {},
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -24,7 +25,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   cell: {
-    height: 50,
+    height: 40,
     margin: 2,
     backgroundColor: 'rgba(230, 230, 230, 1)',
     alignItems: 'center',

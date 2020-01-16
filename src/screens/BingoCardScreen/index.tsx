@@ -9,14 +9,19 @@ import {
 import styles from './styles';
 import REST from '../../utils/api';
 import { connect } from 'react-redux';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import Button from '../../components/atoms/Button';
 
-interface Props extends NavigationStackScreenProps {
+interface IProps extends NavigationStackScreenProps {
   navigation: NavigationStackProp;
 }
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
-const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
+const BingoCardScreen: NavigationStackScreenComponent<IProps> = props => {
+  const [isRefreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     props.getCards();
   }, []);
@@ -26,14 +31,35 @@ const BingoCardScreen: NavigationStackScreenComponent<Props> = props => {
     props.navigation.navigate('', item);
   };
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    props.getCards(() => {
+      setRefreshing(false);
+    });
+  };
+
+  const onUpdate = () => {
+    props.getCards();
+  };
+
   return (
     <View style={styles.main}>
       <View style={styles.content}>
-        <FlatList
-          data={props.card.cards}
-          renderItem={({ item }) => <Card {...item.card} title={item.title} />}
-          keyExtractor={item => item._id}
-        />
+        <ScrollableTabView
+          prerenderingSiblingsNumber={5}
+          renderTabBar={tab => (
+            <View>
+              <Text style={styles.title}>{tab.tabs[tab.activeTab]}</Text>
+            </View>
+          )}
+        >
+          {props.card.cards.map(item => (
+            <Card key={item.current_code} {...item.card} title={item.title} tabLabel={item.title} />
+          ))}
+        </ScrollableTabView>
+        <Button width={150} onPress={onUpdate}>
+          Refresh
+        </Button>
       </View>
     </View>
   );
@@ -53,8 +79,7 @@ const Card: React.FC<ICard> = ({ card, num_of_column, title }) => {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
-      {card.map((row, index) => (
+      {card.map((row: [], index) => (
         <View key={index} style={styles.row}>
           {row.map(cell => (
             <View key={cell.value} style={{ width: cellWidth }}>
@@ -82,8 +107,11 @@ const Card: React.FC<ICard> = ({ card, num_of_column, title }) => {
 // };
 
 BingoCardScreen.navigationOptions = () => ({
-  headerShown: false,
+  headerShown: true,
   title: '',
+  headerStyle: {
+    height: 20,
+  },
 });
 
 const mapState = state => ({
@@ -92,9 +120,10 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  getCards: () =>
+  getCards: callback =>
     dispatch({
       type: 'WATCH_GET_CARDS',
+      callback,
     }),
 });
 

@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  StyleSheetProperties,
-} from 'react-native';
+import { View, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import styles from './styles';
 import { primary, secondary } from '../../../../src/styles/color';
 
 type Type = 'default' | 'primary' | 'secondary';
 
-interface Props extends TouchableOpacityProps {
+interface IProps extends TouchableOpacityProps {
   type?: Type;
+  width?: number;
 }
 
-const ButtonCustom: React.FC<Props> = props => {
+const ButtonCustom: React.FC<IProps> = props => {
   const [isPressIn, setIsPressIn] = useState(false);
   let theme = {
     main: {},
@@ -74,16 +68,16 @@ const ButtonCustom: React.FC<Props> = props => {
     }
   }
 
-  const onPressIn = e => {
+  const onPressIn = () => {
     setIsPressIn(true);
   };
 
-  const onPressOut = e => {
+  const onPressOut = () => {
     setIsPressIn(false);
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width: props.width }]}>
       <TouchableOpacity
         {...props}
         style={[styles.main, theme.main, props.style, isPressIn && styles.pressIn]}
