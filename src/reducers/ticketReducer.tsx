@@ -1,12 +1,12 @@
-export const UPDATE_CARD = 'UPDATE_CARD';
+export const UPDATE_TICKET = 'UPDATE_TICKET';
 
 const initialState = {
-  cards: [],
+  list: [],
 };
 
 const mapActions = {
-  [UPDATE_CARD]: (state, payload) => ({
-    cards: payload,
+  [UPDATE_TICKET]: (state, payload) => ({
+    list: payload,
   }),
 };
 

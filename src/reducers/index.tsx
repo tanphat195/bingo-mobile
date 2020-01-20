@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 
 import user from './userReducer';
 import room from './roomReducer';
-import card from './cardReducer';
+import ticket from './ticketReducer';
 
 export default combineReducers({
   user,
   room,
-  card,
+  ticket,
 });

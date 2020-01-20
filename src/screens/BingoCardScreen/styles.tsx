@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { PRIMARY } from '../../constant';
 
 export default StyleSheet.create({
   main: {
@@ -17,7 +18,7 @@ export default StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
   },
-  card: {},
+  matrix: {},
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -32,5 +33,15 @@ export default StyleSheet.create({
     justifyContent: 'center',
     padding: 0,
     fontSize: 10,
+  },
+  cellText: {
+    fontSize: 18,
+  },
+  announced: {
+    backgroundColor: PRIMARY,
+  },
+  announcedText: {
+    color: '#FFFFFF',
+    fontSize: 18,
   },
 });

@@ -23,7 +23,7 @@ const BingoCardScreen: NavigationStackScreenComponent<IProps> = props => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    props.getCards();
+    props.getTickets();
   }, []);
 
   const gotoCardDetail = item => {
@@ -33,13 +33,13 @@ const BingoCardScreen: NavigationStackScreenComponent<IProps> = props => {
 
   const onRefresh = () => {
     setRefreshing(true);
-    props.getCards(() => {
+    props.getTickets(() => {
       setRefreshing(false);
     });
   };
 
   const onUpdate = () => {
-    props.getCards();
+    props.getTickets();
   };
 
   return (
@@ -53,7 +53,7 @@ const BingoCardScreen: NavigationStackScreenComponent<IProps> = props => {
             </View>
           )}
         >
-          {props.card.cards.map(item => (
+          {props.ticket.list.map(item => (
             <Card key={item.current_code} {...item.card} title={item.title} tabLabel={item.title} />
           ))}
         </ScrollableTabView>
@@ -66,26 +66,38 @@ const BingoCardScreen: NavigationStackScreenComponent<IProps> = props => {
 };
 
 interface ICard {
-  card: [];
+  matrix: [];
   num_of_column: number;
   title: string;
 }
 
-const Card: React.FC<ICard> = ({ card, num_of_column, title }) => {
+const Card: React.FC<ICard> = ({ matrix, num_of_column, title }) => {
   const [cellWidth, setCellWidth] = useState(0);
   useEffect(() => {
     setCellWidth(screenWidth / num_of_column);
   });
 
   return (
-    <View style={styles.card}>
-      {card.map((row: [], index) => (
+    <View style={styles.matrix}>
+      {matrix.map((row: [], index) => (
         <View key={index} style={styles.row}>
           {row.map(cell => (
             <View key={cell.value} style={{ width: cellWidth }}>
-              <TouchableOpacity style={styles.cell}>
-                <Text>{cell.status === 'available' ? cell.value : ''}</Text>
-              </TouchableOpacity>
+              {cell.status === 'available' && (
+                <TouchableOpacity style={styles.cell}>
+                  <Text style={styles.cellText}>{cell.value}</Text>
+                </TouchableOpacity>
+              )}
+              {cell.status === 'announced' && (
+                <TouchableOpacity style={[styles.cell, styles.announced]}>
+                  <Text style={[styles.cellText, styles.announcedText]}>{cell.value}</Text>
+                </TouchableOpacity>
+              )}
+              {cell.status === 'hidden' && (
+                <TouchableOpacity style={styles.cell}>
+                  {/* <Text style={{ color: 'rgba(0,0,0,0.2)', fontSize: 12 }}>{cell.value}</Text> */}
+                </TouchableOpacity>
+              )}
             </View>
           ))}
         </View>
@@ -116,13 +128,13 @@ BingoCardScreen.navigationOptions = () => ({
 
 const mapState = state => ({
   access_token: state.access_token,
-  card: state.card,
+  ticket: state.ticket,
 });
 
 const mapDispatch = dispatch => ({
-  getCards: callback =>
+  getTickets: callback =>
     dispatch({
-      type: 'WATCH_GET_CARDS',
+      type: 'WATCH_GET_TICKETS',
       callback,
     }),
 });
