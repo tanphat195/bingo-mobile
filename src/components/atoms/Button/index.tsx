@@ -14,6 +14,7 @@ const ButtonCustom: React.FC<IProps> = props => {
   const [isPressIn, setIsPressIn] = useState(false);
   let theme = {
     main: {},
+    press: {},
     text: {},
   };
 
@@ -23,6 +24,9 @@ const ButtonCustom: React.FC<IProps> = props => {
         main: {
           borderWidth: 1,
           borderColor: primary,
+        },
+        press: {
+          backgroundColor: '#1AA8EB',
         },
         text: {
           color: '#FFFFFF',
@@ -35,6 +39,9 @@ const ButtonCustom: React.FC<IProps> = props => {
         main: {
           backgroundColor: primary,
         },
+        press: {
+          backgroundColor: '#1AA8EB',
+        },
         text: {
           color: '#FFFFFF',
         },
@@ -45,6 +52,9 @@ const ButtonCustom: React.FC<IProps> = props => {
       theme = {
         main: {
           backgroundColor: secondary,
+        },
+        press: {
+          backgroundColor: 'red',
         },
         text: {
           color: '#FFFFFF',
@@ -58,6 +68,9 @@ const ButtonCustom: React.FC<IProps> = props => {
           main: {
             borderWidth: 1,
             borderColor: primary,
+          },
+          press: {
+            backgroundColor: '#1AA8EB',
           },
           text: {
             color: '#FFFFFF',
@@ -77,10 +90,10 @@ const ButtonCustom: React.FC<IProps> = props => {
   };
 
   return (
-    <View style={[styles.container, { width: props.width }]}>
+    <View style={[styles.container, props.style]}>
       <TouchableOpacity
         {...props}
-        style={[styles.main, theme.main, props.style, isPressIn && styles.pressIn]}
+        style={[styles.main, theme.main, isPressIn && styles.pressIn]}
         onPress={props.onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
@@ -92,7 +105,7 @@ const ButtonCustom: React.FC<IProps> = props => {
           props.children
         )}
       </TouchableOpacity>
-      <View style={styles.press} />
+      <View style={[styles.press, theme.press]} />
     </View>
   );
 };

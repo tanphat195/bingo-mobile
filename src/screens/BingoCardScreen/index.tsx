@@ -121,9 +121,7 @@ const Card: React.FC<ICard> = ({ matrix, num_of_column, title }) => {
 BingoCardScreen.navigationOptions = () => ({
   headerShown: true,
   title: '',
-  headerStyle: {
-    height: 20,
-  },
+  headerStyle: {},
 });
 
 const mapState = state => ({

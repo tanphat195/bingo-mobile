@@ -9,7 +9,7 @@
     "test:lint": "eslint --ext .ts ./src",
     "test:lint:fix": "npm run test:lint -- --fix",
     "test": "npm run test:lint && npm run test:unit",
-    "gen:component": "npx hygen component new",
+    "gen:component:atom": "npx hygen component --level atoms new",
     "gen:screen": "npx hygen screen new"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "react-native-device-info": "^5.4.0",
     "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "~1.5.0",
+    "react-native-input-spinner": "^1.2.8",
     "react-native-paper": "^3.4.0",
     "react-native-permissions": "^2.0.9",
     "react-native-qrcode": "^0.2.7",

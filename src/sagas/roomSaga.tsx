@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import REST from '../utils/api';
-import { UPDATE_ROOM } from '../reducers/roomReducer';
+import { UPDATE_ROOM, ADD_ROOM } from '../reducers/roomReducer';
 
 export function* watchGetCurrentRoomAsync() {
   yield takeLatest('WATCH_GET_CURRENT_ROOM', workerGetCurrentRoomAsync);
@@ -26,3 +26,31 @@ const requestGetCurrentRoom = () => {
 };
 
 ///////////////////////////////////////////////////////
+
+export function* watchAddCurrentRoomAsync() {
+  yield takeLatest('WATCH_ADD_CURRENT_ROOM', workerAddCurrentRoomAsync);
+}
+
+function* workerAddCurrentRoomAsync(action: any) {
+  try {
+    const res = yield call(requestAddCurrentRoom, action.payload);
+    yield put({
+      type: ADD_ROOM,
+      payload: res.data,
+    });
+
+    if (action.callback) {
+      action.callback(null, res.data);
+    }
+  } catch (error) {
+    // yield put({
+    //   type: ADD_ROOM,
+    //   payload: {},
+    // });
+    action.callback(error);
+  }
+}
+
+const requestAddCurrentRoom = (value: any) => {
+  return REST.post('room', value);
+};

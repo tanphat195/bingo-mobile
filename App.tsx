@@ -15,6 +15,7 @@ export default () => {
     } else {
       StatusBar.setBarStyle('default');
     }
+    StatusBar.setHidden(true);
   };
 
   return (
